@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Movies.module.css";
 import MovieModal from "../MenuModal/MovieModal";
 
 function Movies({ searchResults }) {
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const navigate = useNavigate();
 
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
@@ -14,8 +16,16 @@ function Movies({ searchResults }) {
     setSelectedMovie(null);
   };
 
+  const handleGoBack = () => {
+    navigate("/");
+  };
+
   return (
     <div className={styles.moviesContainer}>
+      <button className={styles.goBackButton} onClick={handleGoBack}>
+        Go Back
+      </button>
+
       {searchResults.length > 0 ? (
         <ul className={styles.moviesList}>
           {searchResults.map((movie) => (
