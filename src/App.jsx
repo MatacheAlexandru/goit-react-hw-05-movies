@@ -29,12 +29,16 @@ function App() {
       .catch((error) => console.log(error));
   };
 
-  // Folosește HashRouter în producție (GitHub Pages), și BrowserRouter în dezvoltare (localhost)
+  // Folosește HashRouter în producție și BrowserRouter în dezvoltare
   const RouterComponent =
     process.env.NODE_ENV === "development" ? Router : HashRouter;
+  const routerProps =
+    process.env.NODE_ENV === "development"
+      ? {} // Nu folosim basename pe localhost
+      : { basename: "/goit-react-hw-05-movies" };
 
   return (
-    <RouterComponent basename="/goit-react-hw-05-movies">
+    <RouterComponent {...routerProps}>
       <Header onSearch={handleSearch} />
       <Suspense fallback={<div>Loading popular movies...</div>}>
         <Routes>
