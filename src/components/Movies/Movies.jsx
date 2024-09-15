@@ -8,15 +8,22 @@ function Movies({ searchResults }) {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const navigate = useNavigate();
 
+  // Când un film este selectat din listă
   const handleMovieClick = (movie) => {
+    console.log("Selected movie:", movie); // Debug pentru a verifica dacă filmul este selectat corect
     setSelectedMovie(movie);
   };
 
+  // Când utilizatorul vrea să vadă detaliile filmului
   const handleMovieDetailsClick = () => {
-    navigate(`/movies/${selectedMovie.id}`, { state: { from: "movies" } }); // Navighează la MoviePageDetails cu state: "movies"
-    setSelectedMovie(null);
+    console.log("Navigating to movie details:", selectedMovie); // Debug pentru a verifica movie id
+    if (selectedMovie && selectedMovie.id) {
+      navigate(`/movies/${selectedMovie.id}`, { state: { from: "movies" } });
+      setSelectedMovie(null); // Resetează filmul selectat după navigare
+    }
   };
 
+  // Închide modalul pentru filmul selectat
   const closeModal = () => {
     setSelectedMovie(null);
   };
@@ -32,18 +39,25 @@ function Movies({ searchResults }) {
               onClick={() => handleMovieClick(movie)}
             >
               <img
-                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                src={
+                  movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                    : "https://via.placeholder.com/500x750?text=No+Image" // Imagine fallback dacă poster_path lipsește
+                }
                 alt={movie.title}
                 className={styles.moviePoster}
               />
               <h3>{movie.title}</h3>
               <p>
-                {movie.overview.length > 100
-                  ? movie.overview.substring(0, 100) + "..."
-                  : movie.overview}
+                {movie.overview
+                  ? movie.overview.length > 100
+                    ? movie.overview.substring(0, 100) + "..."
+                    : movie.overview
+                  : "No overview available"}{" "}
+                {/* Fallback pentru overview */}
               </p>
               <p>
-                <strong>Release Date:</strong> {movie.release_date}
+                <strong>Release Date:</strong> {movie.release_date || "N/A"}
               </p>
             </li>
           ))}
@@ -54,6 +68,7 @@ function Movies({ searchResults }) {
         </p>
       )}
 
+      {/* Afișează modalul doar dacă există un film selectat */}
       {selectedMovie && (
         <MovieModal
           movie={selectedMovie}
@@ -78,3 +93,4 @@ Movies.propTypes = {
 };
 
 export default Movies;
+s;

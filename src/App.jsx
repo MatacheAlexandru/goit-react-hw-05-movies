@@ -23,7 +23,7 @@ function App() {
         `https://api.themoviedb.org/3/search/movie?api_key=686954a6867702e2802dd31dcf4680f7&query=${query}`
       )
       .then((response) => {
-        console.log("Rezultatele căutării:", response.data.results); // Debug pentru date API
+        console.log("Rezultatele căutării:", response.data.results);
         setSearchResults(response.data.results);
       })
       .catch((error) => console.log(error));
@@ -31,7 +31,6 @@ function App() {
 
   return (
     <Router>
-      {/* Elimină basename, HashRouter nu are nevoie de el */}
       <Header onSearch={handleSearch} />
       <Suspense fallback={<div>Se încarcă filmele populare...</div>}>
         <Routes>
