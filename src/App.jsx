@@ -23,15 +23,17 @@ function App() {
         `https://api.themoviedb.org/3/search/movie?api_key=686954a6867702e2802dd31dcf4680f7&query=${query}`
       )
       .then((response) => {
+        console.log("Rezultatele căutării:", response.data.results); // Debug pentru date API
         setSearchResults(response.data.results);
       })
       .catch((error) => console.log(error));
   };
 
   return (
-    <Router basename="/goit-react-hw-05-movies">
+    <Router>
+      {/* Elimină basename, HashRouter nu are nevoie de el */}
       <Header onSearch={handleSearch} />
-      <Suspense fallback={<div>Loading popular movies...</div>}>
+      <Suspense fallback={<div>Se încarcă filmele populare...</div>}>
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
@@ -39,7 +41,7 @@ function App() {
             path="/movies"
             element={<Movies searchResults={searchResults} />}
           />
-          <Route path="/movies/:movieId" element={<MoviePageDetails />} />{" "}
+          <Route path="/movies/:movieId" element={<MoviePageDetails />} />
         </Routes>
       </Suspense>
     </Router>
