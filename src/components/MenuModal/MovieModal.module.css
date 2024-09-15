@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75); /* fundal mai închis */
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
 }
 
 .modalContent {
-  background-color: rgba(255, 255, 255, 0.795);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 40px;
   border-radius: 16px;
   position: relative;
@@ -20,8 +20,7 @@
   max-width: 95%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* umbră pentru adâncime */
-  transition: all 0.3s ease-in-out;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
 .closeButton {
@@ -39,16 +38,35 @@
   color: #c0392b;
 }
 
+.movieDetailsButton {
+  position: relative;
+  top: opx;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.movieDetailsButton:hover {
+  background-color: #c0392b;
+}
+
 .moviePoster {
   max-width: 100%;
-
   height: auto;
   border-radius: 12px;
   margin-bottom: 20px;
   object-fit: cover;
 }
 
-h2 {
+.movieTitle {
   font-size: 2rem;
   color: #2c3e50;
   margin-bottom: 15px;
@@ -56,7 +74,7 @@ h2 {
   font-weight: 600;
 }
 
-p {
+.movieOverview {
   font-size: 1.4rem;
   color: #373b3b;
   line-height: 1.6;
@@ -64,80 +82,10 @@ p {
   margin-bottom: 15px;
 }
 
-.movieDetails {
+.movieReleaseDate {
   font-size: 1.1rem;
   color: #34495e;
   margin-bottom: 20px;
-  text-align: center;
-}
-
-.tabButtons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #ecf0f1;
-}
-
-.tabButton {
-  padding: 12px 24px;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.tabButton:hover {
-  background-color: #2980b9;
-}
-
-.castSection,
-.reviewsSection {
-  margin-top: 20px;
-}
-
-.castList,
-.reviewsList {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 10px;
-}
-
-.castList li,
-.reviewsList li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ecf0f1;
-}
-
-.actorImage {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin-right: 15px;
-  object-fit: cover;
-}
-
-.reviewsList li {
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.reviewsList li p {
-  margin: 5px 0;
-  color: #34495e;
-}
-
-h3 {
-  font-size: 1.5rem;
-  color: #34495e;
-  margin-bottom: 15px;
   text-align: center;
 }
 

@@ -84,7 +84,7 @@
 .customInput:focus,
 .customInput:not(:placeholder-shown) {
   border: 2px solid rgb(255, 255, 255);
-  background-color: rgba(88, 118, 252, 0.342);
+  background-color: rgba(165, 166, 170, 0.397);
   outline: none;
 }
 
@@ -115,6 +115,55 @@
   transform: scale(1.05);
 }
 
+.historyContainer {
+  position: relative;
+}
+
+.historyButton {
+  padding: 8px;
+  background-color: #3d64e2bd;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.historyButton:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #f1f1f1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 200px;
+  z-index: 1000;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.historyItem {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.historyItem:hover {
+  background-color: #ececec;
+}
+
+.noHistory {
+  padding: 10px;
+  color: #888;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -122,7 +171,7 @@
     gap: 1rem;
   }
 
-  .searchInput {
+  .customInput {
     width: 80%;
   }
 

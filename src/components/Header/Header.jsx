@@ -1,14 +1,39 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./Header.module.css";
 
 function Header({ onSearch }) {
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchHistory, setSearchHistory] = useState([]);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  useEffect(() => {
+    const storedHistory =
+      JSON.parse(localStorage.getItem("searchHistory")) || [];
+    setSearchHistory(storedHistory);
+  }, []);
 
   const handleSearch = () => {
     onSearch(searchQuery);
+
+    // Adaugăm la istoric și salvăm în localStorage
+    if (searchQuery && !searchHistory.includes(searchQuery)) {
+      const updatedHistory = [searchQuery, ...searchHistory].slice(0, 5); // Limităm la 5 căutări
+      setSearchHistory(updatedHistory);
+      localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+    }
+    setSearchQuery(""); // Resetăm câmpul de căutare după ce facem căutarea
+  };
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleHistoryClick = (query) => {
+    setSearchQuery(query);
+    setDropdownVisible(false);
   };
 
   return (
@@ -41,6 +66,30 @@ function Header({ onSearch }) {
           <button onClick={handleSearch} className={styles.searchButton}>
             Search
           </button>
+
+          <div className={styles.historyContainer}>
+            <button onClick={toggleDropdown} className={styles.historyButton}>
+              ▼
+            </button>
+
+            {dropdownVisible && (
+              <ul className={styles.dropdown}>
+                {searchHistory.length > 0 ? (
+                  searchHistory.map((query, index) => (
+                    <li
+                      key={index}
+                      className={styles.historyItem}
+                      onClick={() => handleHistoryClick(query)}
+                    >
+                      {query}
+                    </li>
+                  ))
+                ) : (
+                  <li className={styles.noHistory}>No search history</li>
+                )}
+              </ul>
+            )}
+          </div>
         </div>
       )}
     </header>

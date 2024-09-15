@@ -1,11 +1,18 @@
 import { lazy, Suspense, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Header from "./components/Header/Header";
 import axios from "axios";
 
 const Home = lazy(() => import("./components/Home/Home"));
 const Movies = lazy(() => import("./components/Movies/Movies"));
-const MovieDetails = lazy(() => import("./components/MovieDetails"));
+const MoviePageDetails = lazy(() =>
+  import("./components/MoviePageDetails/MoviePageDetails")
+);
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -22,16 +29,17 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/goit-react-hw-05-movies">
       <Header onSearch={handleSearch} />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading popular movies...</div>}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<Home />} />
           <Route
             path="/movies"
             element={<Movies searchResults={searchResults} />}
           />
-          <Route path="/movies/:movieId" element={<MovieDetails />} />
+          <Route path="/movies/:movieId" element={<MoviePageDetails />} />{" "}
         </Routes>
       </Suspense>
     </Router>

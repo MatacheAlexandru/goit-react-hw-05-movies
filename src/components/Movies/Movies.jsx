@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./Movies.module.css";
+import PropTypes from "prop-types";
 import MovieModal from "../MenuModal/MovieModal";
+import styles from "./Movies.module.css";
 
 function Movies({ searchResults }) {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -12,20 +12,17 @@ function Movies({ searchResults }) {
     setSelectedMovie(movie);
   };
 
+  const handleMovieDetailsClick = () => {
+    navigate(`/movies/${selectedMovie.id}`, { state: { from: "movies" } }); // Navighează la MoviePageDetails cu state: "movies"
+    setSelectedMovie(null);
+  };
+
   const closeModal = () => {
     setSelectedMovie(null);
   };
 
-  const handleGoBack = () => {
-    navigate("/");
-  };
-
   return (
     <div className={styles.moviesContainer}>
-      <button className={styles.goBackButton} onClick={handleGoBack}>
-        Go Back
-      </button>
-
       {searchResults.length > 0 ? (
         <ul className={styles.moviesList}>
           {searchResults.map((movie) => (
@@ -56,7 +53,11 @@ function Movies({ searchResults }) {
       )}
 
       {selectedMovie && (
-        <MovieModal movie={selectedMovie} onClose={closeModal} />
+        <MovieModal
+          movie={selectedMovie}
+          onClose={closeModal}
+          onMovieDetailsClick={handleMovieDetailsClick}
+        />
       )}
     </div>
   );
