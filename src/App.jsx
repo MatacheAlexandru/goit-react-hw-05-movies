@@ -1,11 +1,10 @@
 import { lazy, Suspense, useState } from "react";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-
 import Header from "./components/Header/Header";
 import axios from "axios";
 
