@@ -1,7 +1,6 @@
 import { lazy, Suspense, useState } from "react";
 import {
   BrowserRouter as Router,
-  HashRouter,
   Routes,
   Route,
   Navigate,
@@ -29,16 +28,8 @@ function App() {
       .catch((error) => console.log(error));
   };
 
-  // Folosește HashRouter în producție și BrowserRouter în dezvoltare
-  const RouterComponent =
-    process.env.NODE_ENV === "development" ? Router : HashRouter;
-  const routerProps =
-    process.env.NODE_ENV === "development"
-      ? {} // Nu folosim basename pe localhost
-      : { basename: "/goit-react-hw-05-movies" };
-
   return (
-    <RouterComponent {...routerProps}>
+    <Router basename="/goit-react-hw-05-movies">
       <Header onSearch={handleSearch} />
       <Suspense fallback={<div>Loading popular movies...</div>}>
         <Routes>
@@ -48,10 +39,10 @@ function App() {
             path="/movies"
             element={<Movies searchResults={searchResults} />}
           />
-          <Route path="/movies/:movieId" element={<MoviePageDetails />} />
+          <Route path="/movies/:movieId" element={<MoviePageDetails />} />{" "}
         </Routes>
       </Suspense>
-    </RouterComponent>
+    </Router>
   );
 }
 
