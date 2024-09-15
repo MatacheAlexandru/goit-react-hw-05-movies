@@ -8,22 +8,17 @@ function Movies({ searchResults }) {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const navigate = useNavigate();
 
-  // Când un film este selectat din listă
   const handleMovieClick = (movie) => {
-    console.log("Selected movie:", movie); // Debug pentru a verifica dacă filmul este selectat corect
     setSelectedMovie(movie);
   };
 
-  // Când utilizatorul vrea să vadă detaliile filmului
   const handleMovieDetailsClick = () => {
-    console.log("Navigating to movie details:", selectedMovie); // Debug pentru a verifica movie id
     if (selectedMovie && selectedMovie.id) {
       navigate(`/movies/${selectedMovie.id}`, { state: { from: "movies" } });
-      setSelectedMovie(null); // Resetează filmul selectat după navigare
+      setSelectedMovie(null);
     }
   };
 
-  // Închide modalul pentru filmul selectat
   const closeModal = () => {
     setSelectedMovie(null);
   };
@@ -42,7 +37,7 @@ function Movies({ searchResults }) {
                 src={
                   movie.poster_path
                     ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                    : "https://via.placeholder.com/500x750?text=No+Image" // Imagine fallback dacă poster_path lipsește
+                    : "https://via.placeholder.com/500x750?text=No+Image"
                 }
                 alt={movie.title}
                 className={styles.moviePoster}
@@ -54,7 +49,6 @@ function Movies({ searchResults }) {
                     ? movie.overview.substring(0, 100) + "..."
                     : movie.overview
                   : "No overview available"}{" "}
-                {/* Fallback pentru overview */}
               </p>
               <p>
                 <strong>Release Date:</strong> {movie.release_date || "N/A"}
@@ -68,7 +62,6 @@ function Movies({ searchResults }) {
         </p>
       )}
 
-      {/* Afișează modalul doar dacă există un film selectat */}
       {selectedMovie && (
         <MovieModal
           movie={selectedMovie}
@@ -93,4 +86,3 @@ Movies.propTypes = {
 };
 
 export default Movies;
-
