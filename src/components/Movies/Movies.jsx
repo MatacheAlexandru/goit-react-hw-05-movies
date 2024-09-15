@@ -49,7 +49,9 @@ function Movies({ searchResults }) {
           ))}
         </ul>
       ) : (
-        <p>No results found. Try searching for a movie!</p>
+        <p className={styles.noResult}>
+          No results found. Try searching for a movie!
+        </p>
       )}
 
       {selectedMovie && (
