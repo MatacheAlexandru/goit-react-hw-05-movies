@@ -93,4 +93,4 @@ Movies.propTypes = {
 };
 
 export default Movies;
-s;
+
